@@ -1,0 +1,7 @@
+export * from './userIpc'
+export * from './productIpc'
+export * from './roleIpc'
+export * from './transactionIpc'
+export * from './categoryIpc'
+export * from './customerIpc'
+export * from './authIpc'
