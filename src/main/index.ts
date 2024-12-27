@@ -4,6 +4,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { connectDB } from './services/database/db_conn'
 import { ipc } from './services/ipc'
+require('@electron/remote/main').initialize()
 
 function createWindow(): void {
   const mainWindow = new BrowserWindow({
@@ -11,7 +12,6 @@ function createWindow(): void {
     height: 670,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       contextIsolation: true,
@@ -23,8 +23,19 @@ function createWindow(): void {
     mainWindow.show()
   })
 
-  mainWindow.webContents.setWindowOpenHandler((details) => {
-    shell.openExternal(details.url)
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (url === 'about:blank') {
+      return {
+        action: 'allow',
+        overrideBrowserWindowOptions: {
+          frame: false,
+          fullscreenable: false,
+          webPreferences: {
+            preload: join(__dirname, '../preload/index.js')
+          }
+        }
+      }
+    }
     return { action: 'deny' }
   })
 

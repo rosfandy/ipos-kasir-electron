@@ -13,7 +13,7 @@ exports.up = function (knex) {
       .onDelete('CASCADE')
       .onUpdate('CASCADE')
     table.string('name').notNullable()
-    table.integer('unit').notNullable()
+    table.integer('unit_id').notNullable().references('id').inTable('units')
     table.decimal('price').defaultTo(0).notNullable()
     table.timestamps(true, true)
   })

@@ -1,5 +1,5 @@
 import { cva } from 'class-variance-authority'
-import { FC, ReactNode } from 'react'
+import { forwardRef, ReactNode } from 'react'
 import { cn } from '../../utils/utils'
 
 interface ButtonProps {
@@ -10,8 +10,10 @@ interface ButtonProps {
   style?: React.CSSProperties
   size?: 'small' | 'medium' | 'large'
   variant?: 'default' | 'secondary' | 'danger' | 'success' | 'warning'
+  className?: string
 }
 
+// Define the variants for the button styles
 const Variants = cva(
   'flex items-center font-bold gap-x-4 justify-center duration-200 transition-all rounded shadow-lg text-white',
   {
@@ -36,12 +38,14 @@ const Variants = cva(
   }
 )
 
-const Button: FC<ButtonProps> = ({ ...props }) => {
-  const { label, onClick, disabled, size, icon: Icon, style, variant } = props
+// Use forwardRef to allow ref forwarding
+const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  const { label, onClick, disabled, size, icon: Icon, style, variant, className } = props
 
   return (
     <button
-      className={cn(Variants({ variant, size }))}
+      ref={ref} // Pass the ref to the button element
+      className={cn(Variants({ variant, size }), className)}
       disabled={disabled}
       style={style}
       onClick={onClick}
@@ -50,6 +54,6 @@ const Button: FC<ButtonProps> = ({ ...props }) => {
       {!disabled && Icon && Icon}
     </button>
   )
-}
+})
 
 export { Button }

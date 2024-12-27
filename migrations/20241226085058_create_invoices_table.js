@@ -3,13 +3,13 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-  return knex.schema.createTable('transactions', (table) => {
+  return knex.schema.createTable('invoices', (table) => {
     table.uuid('id').primary()
-    table.integer('staff_id').references('id').inTable('users')
     table.uuid('customer_id').references('id').inTable('customers')
-    table.integer('product_id').references('id').inTable('products')
-    table.integer('total_product').notNullable()
+    table.integer('staff_id').references('id').inTable('users')
+    table.integer('transaction_id').references('id').inTable('transactions')
     table.decimal('total_price').notNullable()
+    table.decimal('total_profit').notNullable()
     table.dateTime('order_date').notNullable()
     table.timestamps(true, true)
   })
@@ -20,5 +20,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-  return knex.schema.dropTableIfExists('transactions')
+  return knex.schema.dropTableIfExists('invoices')
 }
