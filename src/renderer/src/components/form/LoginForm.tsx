@@ -28,6 +28,7 @@ export function LoginForm() {
       setError('')
 
       const response = await (window.api as any).auth.login(payload)
+      console.log(response)
       sessionStorage.setItem('user', JSON.stringify(response.data))
       if (response.success === true) navigate('/dashboard')
 
@@ -45,7 +46,7 @@ export function LoginForm() {
         {error && <Message text={error} variant="danger" onClick={() => setError('')} />}
         <InputText
           icon={<LuMail size={20} />}
-          type="email"
+          type="text"
           placeholder="masukkan email"
           name="email"
           label="Email"

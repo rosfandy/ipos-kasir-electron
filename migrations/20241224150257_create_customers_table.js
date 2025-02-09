@@ -4,11 +4,11 @@
  */
 exports.up = function (knex) {
   return knex.schema.createTable('customers', (table) => {
-    table.uuid('id').primary()
-    table.string('name').notNullable().unique()
-    table.string('phone').notNullable().unique()
-    table.string('address').nullable()
-    table.integer('points').defaultTo(0)
+    table.increments('id').primary()
+    table.string('name').notNullable().unique().index('idx_customer_name')
+    table.string('phone').nullable().unique().index('idx_customer_phone')
+    table.string('address').nullable().index('idx_customer_address')
+    table.integer('points').defaultTo(0).index('idx_customer_points')
     table.timestamps(true, true)
   })
 }

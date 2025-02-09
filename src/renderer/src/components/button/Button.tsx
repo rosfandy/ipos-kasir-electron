@@ -38,19 +38,18 @@ const Variants = cva(
   }
 )
 
-// Use forwardRef to allow ref forwarding
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const { label, onClick, disabled, size, icon: Icon, style, variant, className } = props
 
   return (
     <button
-      ref={ref} // Pass the ref to the button element
+      ref={ref}
       className={cn(Variants({ variant, size }), className)}
       disabled={disabled}
       style={style}
       onClick={onClick}
     >
-      {disabled ? 'Loading...' : label}
+      {label}
       {!disabled && Icon && Icon}
     </button>
   )

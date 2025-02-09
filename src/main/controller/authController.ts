@@ -14,10 +14,10 @@ export const loginUser = async (email: string, password: string): Promise<LoginR
     const user = await User.getOneByField('email', email)
     if (!user) return { success: false, error: 'User not found' }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password)
+    const isPasswordValid = await bcrypt.compare(password, user[0].password)
     if (!isPasswordValid) return { success: false, error: 'Invalid password' }
 
-    const data = pick(user, ['id', 'name', 'email', 'role_id'])
+    const data = pick(user[0], ['id', 'name', 'email', 'role_id'])
     return { success: true, data }
   } catch (error) {
     if (error instanceof Error) return { success: false, error: error.message }

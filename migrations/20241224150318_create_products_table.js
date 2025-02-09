@@ -5,16 +5,18 @@
 exports.up = function (knex) {
   return knex.schema.createTable('products', (table) => {
     table.increments('id').primary()
-    table.string('name').notNullable()
-    table.integer('stock').defaultTo(0).notNullable()
+    table.string('name').notNullable().index('idx_product_nme')
     table
       .integer('category_id')
       .notNullable()
       .references('id')
       .inTable('categories')
-      .onDelete('CASCADE')
       .onUpdate('CASCADE')
-    table.string('barcode').nullable()
+      .index('idx_category_product')
+    table.string('barcode').notNullable().unique().index('idx_barcode_product')
+    table.decimal('stock').defaultTo(0).notNullable()
+    table.boolean('is_stock_variant').defaultTo(false).notNullable()
+    table.decimal('purchase_price').defaultTo(0).notNullable()
     table.timestamps(true, true)
   })
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { IconType } from 'react-icons'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { FloatingLabel } from '../label/FloatingLabel'
 
 interface Props {
@@ -32,7 +32,7 @@ const IconButton: React.FC<Props> = ({ ...props }) => {
   }, [])
 
   return (
-    <Link to={path}>
+    <div onClick={() => navigate(path)}>
       <div
         className={`p-4 rounded-md cursor-pointer duration-200 transition-all group relative 
             ${isActive ? 'bg-blue-100' : ''} hover:bg-blue-100`}
@@ -45,9 +45,9 @@ const IconButton: React.FC<Props> = ({ ...props }) => {
             size={24}
           />
         </div>
-        {isHovered && <FloatingLabel label={label.split(' ')[0]} shortcut={`ctrl + ${shortcut}`} />}
+        {isHovered && <FloatingLabel label={label} shortcut={`ctrl + ${shortcut}`} />}
       </div>
-    </Link>
+    </div>
   )
 }
 

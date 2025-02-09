@@ -9,10 +9,10 @@ const { now } = require('./utils/utils')
 exports.seed = async function (knex) {
   await knex('users').insert([
     {
-      role_id: 3,
-      name: 'user',
-      email: 'user@mail.com',
-      password: await bcrypt.hash('user', 10),
+      role_id: 2,
+      name: 'admin',
+      email: 'admin@mail.com',
+      password: await bcrypt.hash('admin', 10),
       created_at: now(),
       updated_at: now()
     }

@@ -1,4 +1,3 @@
-// src/features/tabSlice.ts
 import { createSlice } from '@reduxjs/toolkit'
 
 const tabSlice = createSlice({

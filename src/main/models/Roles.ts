@@ -18,11 +18,11 @@ class RoleModel extends Model {
   }
 
   async getAll(): Promise<any> {
-    return await this.fetchQueryAll(this.table)
+    return await this.fetch(this.table)
   }
 
   async getOne(id: number): Promise<any> {
-    return await this.fetchQueryOne(this.table, id)
+    return await this.fetchById(this.table, id)
   }
 }
 

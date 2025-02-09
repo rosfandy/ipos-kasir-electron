@@ -1,11 +1,14 @@
-// src/store.ts
 import { configureStore } from '@reduxjs/toolkit'
-import tabReducer from '../reducers/tabReducer'
+import { cartReducer, tableReducer, tabReducer } from '../reducers'
 
 const store = configureStore({
   reducer: {
-    tab: tabReducer
+    table: tableReducer,
+    tab: tabReducer,
+    cart: cartReducer
   }
 })
+
+export type RootState = ReturnType<typeof store.getState>
 
 export default store

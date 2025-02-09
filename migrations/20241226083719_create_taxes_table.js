@@ -5,8 +5,8 @@
 exports.up = function (knex) {
   return knex.schema.createTable('taxes', (table) => {
     table.increments('id').primary()
-    table.string('name').notNullable()
-    table.decimal('value').notNullable()
+    table.string('name').notNullable().index('idx_tax_name')
+    table.decimal('value').notNullable().index('idx_tax_value')
     table.timestamps(true, true)
   })
 }

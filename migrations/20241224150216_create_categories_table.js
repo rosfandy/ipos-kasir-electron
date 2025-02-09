@@ -5,7 +5,8 @@
 exports.up = function (knex) {
   return knex.schema.createTable('categories', (table) => {
     table.increments('id').primary()
-    table.string('name').notNullable()
+    table.string('code').notNullable().unique().index('idx_category_code')
+    table.string('name').notNullable().index('idx_category_name')
     table.timestamps(true, true)
   })
 }

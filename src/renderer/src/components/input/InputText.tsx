@@ -14,6 +14,10 @@ interface InputProps {
   variant?: 'default' | 'danger' | 'secondary'
   outline?: 'box' | 'underline' | 'none'
   className?: string
+  iconBgColor?: string
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  required?: boolean
+  value?: string
 }
 
 const Variants = cva('p-4 flex gap-x-4 items-center duration-200 transition-all', {
@@ -46,25 +50,33 @@ const InputText = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     variant,
     outline,
     className,
-    onChange
+    iconBgColor,
+    required,
+    value
   } = props
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   return (
     <div className={cn(Variants({ variant, outline }), className)}>
       <div className="flex items-center gap-x-4 w-full">
-        <label className="" htmlFor={label}>
-          {Icon && Icon}
-        </label>
+        <div className={cn(iconBgColor)}>
+          <label className="" htmlFor={label}>
+            {Icon && Icon}
+          </label>
+        </div>
         <input
           ref={ref}
           type={type === 'password' ? (isPasswordVisible ? 'text' : 'password') : type}
           placeholder={placeholder}
           name={name}
+          step={type === 'number' ? 'any' : undefined}
           id={label}
           className="bg-transparent border-none outline-none w-full"
           style={style}
-          onChange={onChange}
+          required={required}
+          onChange={props.onChange}
+          onKeyDown={props.onKeyDown}
+          value={value}
         />
       </div>
       {type === 'password' && (

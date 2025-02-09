@@ -6,7 +6,8 @@ import { LuX } from 'react-icons/lu'
 interface MessageProps {
   text: string
   variant: 'success' | 'danger'
-  onClick: () => void
+  onClick?: () => void
+  className?: string
 }
 
 const Variants = cva('flex gap-x-4 items-center mt-2', {
@@ -19,9 +20,9 @@ const Variants = cva('flex gap-x-4 items-center mt-2', {
 })
 
 const Message: FC<MessageProps> = ({ ...props }) => {
-  const { text, variant, onClick } = props
+  const { text, variant, onClick, className } = props
   return (
-    <div className={cn(Variants({ variant }))}>
+    <div className={cn(Variants({ variant }), className)}>
       <div>{text}</div>
       <div onClick={onClick} className="cursor-pointer">
         <LuX size={20} />

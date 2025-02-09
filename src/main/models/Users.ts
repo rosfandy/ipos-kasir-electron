@@ -21,6 +21,7 @@ export interface UserInterface {
 
 class UserModel extends Model {
   private table = 'users'
+  private index = ['name', 'email']
 
   constructor(db: SqliteDB) {
     super(db)
@@ -31,15 +32,19 @@ class UserModel extends Model {
   }
 
   async getAll(): Promise<any> {
-    return await this.fetchQueryAll(this.table)
+    return await this.fetch(this.table)
   }
 
   async getOne(id: number): Promise<any> {
-    return await this.fetchQueryOne(this.table, id)
+    return await this.fetchById(this.table, id)
+  }
+
+  async find(value: any) {
+    return await this.search(this.table, this.index, value)
   }
 
   async getOneByField(field: string, value: any): Promise<any> {
-    return await this.fetchOneByQuery(this.table, field, value)
+    return await this.fetchByField(this.table, field, value)
   }
 }
 

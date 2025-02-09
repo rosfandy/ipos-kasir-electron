@@ -1,11 +1,34 @@
 import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import { authApi, userApi } from '../main/services/api'
+import {
+  authApi,
+  categoryApi,
+  customerApi,
+  discountApi,
+  inboundApi,
+  productApi,
+  roleApi,
+  unitApi,
+  userApi,
+  invoiceApi,
+  transactionApi
+} from '../main/services/api'
+import { convertionApi } from '../main/services/api/convertionApi'
 
 // Custom APIs for renderer
 const api = {
   auth: authApi,
-  user: userApi
+  user: userApi,
+  product: productApi,
+  unit: unitApi,
+  convertion: convertionApi,
+  discount: discountApi,
+  roleApi: roleApi,
+  customer: customerApi,
+  inbound: inboundApi,
+  invoice: invoiceApi,
+  transaction: transactionApi,
+  category: categoryApi
 }
 if (process.contextIsolated) {
   try {

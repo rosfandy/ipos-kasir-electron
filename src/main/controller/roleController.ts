@@ -26,8 +26,6 @@ export const fetchAllRoles = async () => {
 export const fetchOneRole = async (id: number) => {
   try {
     const role = await Role.getOne(id)
-    console.log('role')
-    console.log(role)
     return role
   } catch (error) {
     if (error instanceof Error) return { success: false, error: error.message }
